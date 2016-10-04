@@ -1,0 +1,6 @@
+[submodule "Module/RailgunNet"]
+	path = Module/RailgunNet
+	url = https://github.com/ashoulson/RailgunNet
+[submodule "Module/MiniUDP"]
+	path = Module/MiniUDP
+	url = https://github.com/ashoulson/MiniUDP
