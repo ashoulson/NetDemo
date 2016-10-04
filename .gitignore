@@ -1,0 +1,32 @@
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+
+# Auto-generated VS/MD solution and project files
+*.unityproj
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.suo
+
+# Unity3D generated meta files
+*.pidb.meta
+Unity/Assets/Assemblies.meta
+
+# Unity3D generated file on crash reports
+sysinfo.txt
+
+# Build Files
+Unity/Assets/Assemblies/*
+GameLogic/bin/*
+GameLogic/obj/*
+Server/obj/*
+Server/bin/*
+FakeUnity/obj/*
+FakeUnity/bin/*
+
+
