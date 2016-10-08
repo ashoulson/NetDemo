@@ -1,5 +1,5 @@
 ﻿/*
- *  RailgunNet - A Client/Server Network State-Synchronization Layer for Games
+ *  NetDemo - A Unity client/standalone server demo using Railgun and MiniUDP
  *  Copyright (c) 2016 - Alexander Shoulson - http://ashoulson.com
  *
  *  This software is provided 'as-is', without any express or implied
@@ -18,14 +18,38 @@
  *  3. This notice may not be removed or altered from any source distribution.
 */
 
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using Railgun;
 
-namespace UnityEngine
+namespace GameLogic
 {
-  public static class Time
+  [RegisterEvent]
+  public class GameActionEvent : RailEvent<GameActionEvent>
   {
-    public static float fixedDeltaTime = 0.02f;
+    public int Key;
+
+    protected override void SetDataFrom(GameActionEvent other)
+    {
+      this.Key = other.Key;
+    }
+
+    protected override void EncodeData(RailBitBuffer buffer, Tick packetTick)
+    {
+      buffer.WriteInt(this.Key);
+    }
+
+    protected override void DecodeData(RailBitBuffer buffer, Tick packetTick)
+    {
+      this.Key = buffer.ReadInt();
+    }
+
+    protected override void ResetData()
+    {
+      this.Key = 0;
+    }
+
+    protected override void Invoke(RailRoom room, IRailController sender, RailEntity entity)
+    {
+      GameEvents.OnGameActionEvent(this);
+    }
   }
 }

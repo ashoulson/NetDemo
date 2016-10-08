@@ -1,5 +1,5 @@
 ﻿/*
- *  RailgunNet - A Client/Server Network State-Synchronization Layer for Games
+ *  NetDemo - A Unity client/standalone server demo using Railgun and MiniUDP
  *  Copyright (c) 2016 - Alexander Shoulson - http://ashoulson.com
  *
  *  This software is provided 'as-is', without any express or implied
@@ -18,17 +18,15 @@
  *  3. This notice may not be removed or altered from any source distribution.
 */
 
-using System;
-using System.Collections;
-using System.Collections.Generic;
-
 using Railgun;
-using UnityEngine;
 
-public static class DemoCompressors
+namespace GameLogic
 {
-  public static readonly RailFloatCompressor Coordinate = 
-    new RailFloatCompressor(-512.0f, 512.0f, DemoMath.COORDINATE_PRECISION / 10.0f);
-  public static readonly RailFloatCompressor Angle = 
-    new RailFloatCompressor(0.0f, 360.0f, DemoMath.ANGLE_PRECISION / 10.0f);
+  public static class GameCompressors
+  {
+    public static readonly RailFloatCompressor Coordinate =
+      new RailFloatCompressor(-512.0f, 512.0f, GameMath.COORDINATE_PRECISION / 10.0f);
+    public static readonly RailFloatCompressor Angle =
+      new RailFloatCompressor(0.0f, 360.0f, GameMath.ANGLE_PRECISION / 10.0f);
+  }
 }

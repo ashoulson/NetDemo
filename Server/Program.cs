@@ -19,8 +19,10 @@
 */
 
 using System;
-using System.Collections;
-using System.Collections.Generic;
+
+using UnityStandalone;
+
+using GameLogic;
 
 namespace Example
 {
@@ -28,12 +30,15 @@ namespace Example
   {
     static void Main(string[] args)
     {
-      Server room = new Server(44325, 0.02f);
-      room.Start();
+      //Server room = new Server(44325, 0.02f);
+      //room.Start();
+
+      Vector2 foo = GameMath.DoThing();
+      Console.Write(foo.x + " " + foo.y);
 
       while (true)
       {
-        room.Update();
+        //room.Update();
 
         if (Console.KeyAvailable)
         {
@@ -41,7 +46,7 @@ namespace Example
           switch (key.Key)
           {
             case ConsoleKey.F1:
-              room.Stop();
+              //room.Stop();
               return;
 
             default:

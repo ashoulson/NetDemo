@@ -1,5 +1,5 @@
 ﻿/*
- *  RailgunNet - A Client/Server Network State-Synchronization Layer for Games
+ *  NetDemo - A Unity client/standalone server demo using Railgun and MiniUDP
  *  Copyright (c) 2016 - Alexander Shoulson - http://ashoulson.com
  *
  *  This software is provided 'as-is', without any express or implied
@@ -18,17 +18,40 @@
  *  3. This notice may not be removed or altered from any source distribution.
 */
 
-using System;
-using System.Collections;
-using System.Collections.Generic;
+#if SERVER
+using UnityStandalone;
+#else
+using UnityEngine;
+#endif
 
-namespace UnityEngine
+namespace GameLogic
 {
-  public static class Debug
+  public static class GameMath
   {
-    public static void Log(object message)
-    {
+    internal const float COORDINATE_PRECISION = 0.001f;
+    internal const float ANGLE_PRECISION = 0.001f;
 
+    internal static bool CoordinatesEqual(float a, float b)
+    {
+      return Mathf.Abs(a - b) < GameMath.COORDINATE_PRECISION;
+    }
+
+    internal static bool AnglesEqual(float a, float b)
+    {
+      return Mathf.Abs(a - b) < GameMath.ANGLE_PRECISION;
+    }
+
+    internal static float LerpUnclampedFloat(
+      float from,
+      float to,
+      float t)
+    {
+      return (from + ((to - from) * t));
+    }
+
+    public static Vector2 DoThing()
+    {
+      return new Vector2(1.0f, 1.0f);
     }
   }
 }

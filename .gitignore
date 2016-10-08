@@ -22,11 +22,13 @@ sysinfo.txt
 
 # Build Files
 Unity/Assets/Assemblies/*
-GameLogic/bin/*
-GameLogic/obj/*
+Include/GameLogic/bin/*
+Include/GameLogic/obj/*
+Include/UnityStandalone/obj/*
+Include/UnityStandalone/bin/*
 Server/obj/*
 Server/bin/*
-FakeUnity/obj/*
-FakeUnity/bin/*
+Client/obj/*
+Client/bin/*
 
 

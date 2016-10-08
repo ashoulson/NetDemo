@@ -1,5 +1,5 @@
 ﻿/*
- *  RailgunNet - A Client/Server Network State-Synchronization Layer for Games
+ *  NetDemo - A Unity client/standalone server demo using Railgun and MiniUDP
  *  Copyright (c) 2016 - Alexander Shoulson - http://ashoulson.com
  *
  *  This software is provided 'as-is', without any express or implied
@@ -18,14 +18,10 @@
  *  3. This notice may not be removed or altered from any source distribution.
 */
 
-using System;
-using System.Collections;
-using System.Collections.Generic;
-
-using Railgun;
-using UnityEngine;
-
-public static class DemoTypes
+namespace GameLogic
 {
-  public const byte TYPE_DEMO = 1;
+  public static class GameTypes
+  {
+    public const byte TYPE_DEMO = 1;
+  }
 }

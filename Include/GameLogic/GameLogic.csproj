@@ -18,70 +18,77 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\ServerDebug\</OutputPath>
+    <OutputPath>bin\DebugServer\</OutputPath>
     <DefineConstants>TRACE;DEBUG;SERVER</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <NoWarn>1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release Server|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
+    <DebugType>none</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\ServerRelease\</OutputPath>
+    <OutputPath>bin\ReleaseServer\</OutputPath>
     <DefineConstants>TRACE;SERVER</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <NoWarn>1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug Client|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\ClientDebug\</OutputPath>
+    <OutputPath>bin\DebugClient\</OutputPath>
     <DefineConstants>TRACE;DEBUG;CLIENT</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <NoWarn>1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release Client|AnyCPU' ">
-    <OutputPath>bin\ClientRelease\</OutputPath>
+    <OutputPath>bin\ReleaseClient\</OutputPath>
     <DefineConstants>TRACE;CLIENT</DefineConstants>
     <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
+    <DebugType>none</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <NoWarn>1591</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="UnityEngine" Condition="('$(Configuration)'=='Client Debug') Or ('$(Configuration)'=='Client Release')">
+    <Reference Include="UnityEngine">
       <HintPath>$(UnityPathWin)\Editor\Data\Managed\UnityEngine.dll</HintPath>
+      <Private>False</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DemoActionEvent.cs" />
-    <Compile Include="DemoCommand.cs" />
-    <Compile Include="DemoDummy.cs" />
-    <Compile Include="DemoCompressors.cs" />
-    <Compile Include="DemoControlled.cs" />
-    <Compile Include="DemoEvents.cs" />
-    <Compile Include="DemoMath.cs" />
-    <Compile Include="DemoMimic.cs" />
-    <Compile Include="DemoScopeEvaluator.cs" />
-    <Compile Include="DemoState.cs" />
-    <Compile Include="DemoTypes.cs" />
+    <Compile Include="GameActionEvent.cs" />
+    <Compile Include="GameCommand.cs" />
+    <Compile Include="GameDummy.cs" />
+    <Compile Include="GameCompressors.cs" />
+    <Compile Include="GameControlled.cs" />
+    <Compile Include="GameEvents.cs" />
+    <Compile Include="GameMath.cs" />
+    <Compile Include="GameMimic.cs" />
+    <Compile Include="GameScopeEvaluator.cs" />
+    <Compile Include="GameState.cs" />
+    <Compile Include="GameTypes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FakeUnity\FakeUnity.csproj">
-      <Project>{5fde728e-4392-4b6c-9b28-86506438c7f4}</Project>
-      <Name>FakeUnity</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Module\RailgunNet\RailgunNet\RailgunNet.csproj">
+    <ProjectReference Include="..\..\Module\RailgunNet\RailgunNet\RailgunNet.csproj">
       <Project>{71fada64-87b4-4ee9-b36c-7593e3115d84}</Project>
       <Name>RailgunNet</Name>
     </ProjectReference>
+    <ProjectReference Include="..\UnityStandalone\UnityStandalone.csproj">
+      <Project>{5fde728e-4392-4b6c-9b28-86506438c7f4}</Project>
+      <Name>UnityStandalone</Name>
+      <Private>False</Private>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup Condition="('$(Configuration)'=='Client Debug') Or ('$(Configuration)'=='Client Release')">
-    <PostBuildEvent>echo f | xcopy "$(TargetPath)" "$(SolutionDir)\Unity\Assets\Assemblies\" /Y</PostBuildEvent>
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
