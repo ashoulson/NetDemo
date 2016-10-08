@@ -46,12 +46,19 @@ public class DemoMimic : RailEntity<DemoState>
     this.yOffset = yOffset;
   }
 
+  protected override void OnReset()
+  {
+    this.controlled = null;
+    this.xOffset = 0.0f;
+    this.yOffset = 0.0f;
+  }
+
   protected override void OnStart()
   {
     DemoEvents.OnMimicAdded(this);
   }
 
-  protected override void OnSimulate()
+  protected override void PostUpdate()
   {
     this.State.X = this.controlled.State.X + this.xOffset;
     this.State.Y = this.controlled.State.Y + this.yOffset;

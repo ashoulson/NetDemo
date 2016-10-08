@@ -39,27 +39,40 @@ public class DemoControlled : RailEntity<DemoState, DemoCommand>
     DemoEvents.OnControlledAdded(this);
   }
 
-  protected override void OnSimulateCommand(DemoCommand command)
+  protected override void OnReset()
   {
-    if (command.Up)
+    this.actionCount = 0;
+  }
+
+  protected override void UpdateControl(DemoCommand toPopulate)
+  {
+#if CLIENT
+    //toPopulate.SetData(
+    //  Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W),
+    //  Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S),
+    //  Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A),
+    //  Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D),
+    //  Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.T));
+#endif
+  }
+
+  protected override void ApplyControl(DemoCommand toApply)
+  {
+    if (toApply.Up)
       this.State.Y += 5.0f * Time.fixedDeltaTime;
-    if (command.Down)
+    if (toApply.Down)
       this.State.Y -= 5.0f * Time.fixedDeltaTime;
-    if (command.Left)
+    if (toApply.Left)
       this.State.X -= 5.0f * Time.fixedDeltaTime;
-    if (command.Right)
+    if (toApply.Right)
       this.State.X += 5.0f * Time.fixedDeltaTime;
 
-    if (RailConnection.IsServer && command.Action)
+    if (RailConnection.IsServer && toApply.Action)
     {
       DemoActionEvent evnt = RailEvent.Create<DemoActionEvent>(this);
       evnt.Key = this.actionCount++;
-      this.Controller.QueueUnreliable(evnt, 2);
+      this.Controller.QueueEvent(evnt, 2);
     }
-  }
-
-  protected override void OnSimulate()
-  {
   }
 
   protected override void OnShutdown()

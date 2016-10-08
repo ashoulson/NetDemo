@@ -27,6 +27,8 @@ using UnityEngine;
 
 public static class DemoCompressors
 {
-  public static readonly FloatCompressor Coordinate = new FloatCompressor(-512.0f, 512.0f, DemoMath.COORDINATE_PRECISION / 10.0f);
-  public static readonly FloatCompressor Angle = new FloatCompressor(0.0f, 360.0f, DemoMath.ANGLE_PRECISION / 10.0f);
+  public static readonly RailFloatCompressor Coordinate = 
+    new RailFloatCompressor(-512.0f, 512.0f, DemoMath.COORDINATE_PRECISION / 10.0f);
+  public static readonly RailFloatCompressor Angle = 
+    new RailFloatCompressor(0.0f, 360.0f, DemoMath.ANGLE_PRECISION / 10.0f);
 }

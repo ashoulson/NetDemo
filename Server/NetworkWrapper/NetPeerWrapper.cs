@@ -8,33 +8,29 @@ namespace Example
 {
   internal class NetPeerWrapper : IRailNetPeer
   {
-    public event NetPeerEvent MessagesReady;
+    public event RailNetPeerEvent PayloadReceived;
 
-    // N.B.: This does not read/write the NetPeer's UserData; it's separate
-    public object UserData { get; set; }
+    public object PlayerData { get; set; }
 
     private NetPeer peer;
 
     public NetPeerWrapper(NetPeer peer)
     {
       this.peer = peer;
-      this.peer.MessagesReady += this.OnMessagesReady;
+      peer.UserData = this;
+      this.peer.PayloadReceived += this.OnPayloadReceived;
     }
 
-    private void OnMessagesReady(NetPeer peer)
+    private void OnPayloadReceived(NetPeer peer, byte[] data, int length)
     {
-      if (this.MessagesReady != null)
-        this.MessagesReady.Invoke(this);
+      if (peer != this.peer)
+        throw new InvalidOperationException("Peer wrapper mismatch");
+      this.PayloadReceived?.Invoke(this, data, length);
     }
 
-    public IEnumerable<int> ReadReceived(byte[] buffer)
+    public void SendPayload(byte[] buffer, int length)
     {
-      return this.peer.ReadReceived(buffer);
-    }
-
-    public void EnqueueSend(byte[] buffer, int length)
-    {
-      this.peer.EnqueueSend(buffer, length);
+      this.peer.SendPayload(buffer, length);
     }
   }
 }

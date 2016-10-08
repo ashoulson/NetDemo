@@ -13,7 +13,7 @@
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Server Debug|AnyCPU' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug Server|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
@@ -23,7 +23,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Server Release|AnyCPU' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release Server|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
@@ -33,9 +33,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MiniUDP">
-      <HintPath>..\Unity\Assets\Assemblies\MiniUDP.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
@@ -54,6 +51,14 @@
     <ProjectReference Include="..\GameLogic\GameLogic.csproj">
       <Project>{68b2d2cf-de68-4bcc-82b0-d09a99e32a8d}</Project>
       <Name>GameLogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Module\MiniUDP\MiniUDP\MiniUDP.csproj">
+      <Project>{2f6bdfff-cf4e-4c97-9ecb-04a4e4282660}</Project>
+      <Name>MiniUDP</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Module\RailgunNet\RailgunNet\RailgunNet.csproj">
+      <Project>{71fada64-87b4-4ee9-b36c-7593e3115d84}</Project>
+      <Name>RailgunNet</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

@@ -28,28 +28,28 @@ public class DemoScopeEvaluator : RailScopeEvaluator
     if (entity == this.controlled)
       return true;
 
-    if (entity.State is DemoState)
-    {
-      DemoState controlledState = this.controlled.State;
-      DemoState state = (DemoState)entity.State;
+    //if (entity.State is DemoState)
+    //{
+    //  DemoState controlledState = this.controlled.State;
+    //  DemoState state = (DemoState)entity.State;
 
-      Vector2 origin =
-        new Vector2(
-          controlledState.X,
-          controlledState.Y);
+    //  Vector2 origin =
+    //    new Vector2(
+    //      controlledState.X,
+    //      controlledState.Y);
 
-      Vector2 point =
-        new Vector2(
-          state.X,
-          state.Y);
+    //  Vector2 point =
+    //    new Vector2(
+    //      state.X,
+    //      state.Y);
 
-      float distance = (origin - point).sqrMagnitude;
-      if (distance > maxDistSqr)
-        return false;
+    //  float distance = (origin - point).sqrMagnitude;
+    //  if (distance > maxDistSqr)
+    //    return false;
 
-      priority = distance / (float)ticksSinceSend;
-      return true;
-    }
+    //  priority = distance / (float)ticksSinceSend;
+    //  return true;
+    //}
 
     return true;
   }

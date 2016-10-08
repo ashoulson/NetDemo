@@ -54,7 +54,7 @@ public class DemoState : RailState<DemoState>
   public float Angle;
   public byte Status;
 
-  protected override void DecodeMutableData(BitBuffer buffer, uint flags)
+  protected override void DecodeMutableData(RailBitBuffer buffer, uint flags)
   {
     if (this.GetFlag(flags, FLAG_X)) this.X = buffer.ReadFloat(DemoCompressors.Coordinate);
     if (this.GetFlag(flags, FLAG_Y)) this.Y = buffer.ReadFloat(DemoCompressors.Coordinate);
@@ -62,17 +62,17 @@ public class DemoState : RailState<DemoState>
     if (this.GetFlag(flags, FLAG_STATUS)) this.Status = buffer.ReadByte();
   }
 
-  protected override void DecodeControllerData(BitBuffer buffer)
+  protected override void DecodeControllerData(RailBitBuffer buffer)
   {
   }
 
-  protected override void DecodeImmutableData(BitBuffer buffer)
+  protected override void DecodeImmutableData(RailBitBuffer buffer)
   {
     this.ArchetypeId = buffer.ReadInt();
     this.UserId = buffer.ReadInt();
   }
 
-  protected override void EncodeMutableData(BitBuffer buffer, uint flags)
+  protected override void EncodeMutableData(RailBitBuffer buffer, uint flags)
   {
     if (this.GetFlag(flags, FLAG_X)) buffer.WriteFloat(DemoCompressors.Coordinate, this.X);
     if (this.GetFlag(flags, FLAG_Y)) buffer.WriteFloat(DemoCompressors.Coordinate, this.Y);
@@ -80,14 +80,18 @@ public class DemoState : RailState<DemoState>
     if (this.GetFlag(flags, FLAG_STATUS)) buffer.WriteByte(this.Status);
   }
 
-  protected override void EncodeControllerData(BitBuffer buffer)
+  protected override void EncodeControllerData(RailBitBuffer buffer)
   {
   }
 
-  protected override void EncodeImmutableData(BitBuffer buffer)
+  protected override void EncodeImmutableData(RailBitBuffer buffer)
   {
     buffer.WriteInt(this.ArchetypeId);
     buffer.WriteInt(this.UserId);
+  }
+
+  protected override void ResetControllerData()
+  {
   }
 
   protected override void ResetAllData()

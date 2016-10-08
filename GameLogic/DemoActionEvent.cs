@@ -15,12 +15,12 @@ public class DemoActionEvent : RailEvent<DemoActionEvent>
     this.Key = other.Key;
   }
 
-  protected override void EncodeData(BitBuffer buffer)
+  protected override void EncodeData(RailBitBuffer buffer, Tick packetTick)
   {
     buffer.WriteInt(this.Key);
   }
 
-  protected override void DecodeData(BitBuffer buffer)
+  protected override void DecodeData(RailBitBuffer buffer, Tick packetTick)
   {
     this.Key = buffer.ReadInt();
   }
@@ -30,7 +30,7 @@ public class DemoActionEvent : RailEvent<DemoActionEvent>
     this.Key = 0;
   }
 
-  protected override void Invoke(RailEntity entity)
+  protected override void Invoke(RailRoom room, IRailController sender, RailEntity entity)
   {
     DemoEvents.OnDemoActionEvent(this);
   }

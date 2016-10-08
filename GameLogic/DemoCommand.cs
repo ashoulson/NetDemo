@@ -48,7 +48,7 @@ public class DemoCommand : RailCommand<DemoCommand>
     this.Action = action;
   }
 
-  protected override void EncodeData(BitBuffer buffer)
+  protected override void EncodeData(RailBitBuffer buffer)
   {
     buffer.WriteBool(this.Up);
     buffer.WriteBool(this.Down);
@@ -57,7 +57,7 @@ public class DemoCommand : RailCommand<DemoCommand>
     buffer.WriteBool(this.Action);
   }
 
-  protected override void DecodeData(BitBuffer buffer)
+  protected override void DecodeData(RailBitBuffer buffer)
   {
     this.SetData(
       buffer.ReadBool(),
@@ -80,17 +80,5 @@ public class DemoCommand : RailCommand<DemoCommand>
       other.Left,
       other.Right,
       other.Action);
-  }
-
-  protected override void Populate()
-  {
-#if CLIENT
-    this.SetData(
-      Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W),
-      Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S),
-      Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A),
-      Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D),
-      Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.T));
-#endif
   }
 }

@@ -54,7 +54,16 @@ public class DemoDummy : RailEntity<DemoState>
       this.speed *= -1.0f;
   }
 
-  protected override void OnSimulate()
+  protected override void OnReset()
+  {
+    this.startX = 0.0f;
+    this.startY = 0.0f;
+    this.distance = 0.0f;
+    this.angle = 0.0f;
+    this.speed = 0.0f;
+  }
+
+  protected override void PostUpdate()
   {
     this.angle += RailConfig.FIXED_DELTA_TIME * this.speed;
 

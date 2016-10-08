@@ -14,7 +14,7 @@
     <TargetFrameworkProfile />
     <UnityPathWin>C:\Program Files\Unity</UnityPathWin>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Server Debug|AnyCPU' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug Server|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,7 +23,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Server Release|AnyCPU' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release Server|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\ServerRelease\</OutputPath>
@@ -31,7 +31,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Client Debug|AnyCPU' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug Client|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\ClientDebug\</OutputPath>
     <DefineConstants>TRACE;DEBUG;CLIENT</DefineConstants>
@@ -40,7 +40,7 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Client Release|AnyCPU' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release Client|AnyCPU' ">
     <OutputPath>bin\ClientRelease\</OutputPath>
     <DefineConstants>TRACE;CLIENT</DefineConstants>
     <Optimize>true</Optimize>
@@ -73,6 +73,10 @@
     <ProjectReference Include="..\FakeUnity\FakeUnity.csproj">
       <Project>{5fde728e-4392-4b6c-9b28-86506438c7f4}</Project>
       <Name>FakeUnity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Module\RailgunNet\RailgunNet\RailgunNet.csproj">
+      <Project>{71fada64-87b4-4ee9-b36c-7593e3115d84}</Project>
+      <Name>RailgunNet</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
