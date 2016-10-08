@@ -52,11 +52,11 @@
       <Project>{68b2d2cf-de68-4bcc-82b0-d09a99e32a8d}</Project>
       <Name>GameLogic</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Module\MiniUDP\MiniUDP\MiniUDP.csproj">
+    <ProjectReference Include="..\Include\MiniUDP\MiniUDP\MiniUDP.csproj">
       <Project>{2f6bdfff-cf4e-4c97-9ecb-04a4e4282660}</Project>
       <Name>MiniUDP</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Module\RailgunNet\RailgunNet\RailgunNet.csproj">
+    <ProjectReference Include="..\Include\RailgunNet\RailgunNet\RailgunNet.csproj">
       <Project>{71fada64-87b4-4ee9-b36c-7593e3115d84}</Project>
       <Name>RailgunNet</Name>
     </ProjectReference>

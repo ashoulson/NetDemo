@@ -75,7 +75,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Module\RailgunNet\RailgunNet\RailgunNet.csproj">
+    <ProjectReference Include="..\RailgunNet\RailgunNet\RailgunNet.csproj">
       <Project>{71fada64-87b4-4ee9-b36c-7593e3115d84}</Project>
       <Name>RailgunNet</Name>
     </ProjectReference>
