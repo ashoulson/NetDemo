@@ -8,7 +8,6 @@ public class UnityDebugListener : MonoBehaviour
   }
 }
 
-// singleton pattern
 public class UnityDebugTraceListener : System.Diagnostics.TraceListener
 {
   private static UnityDebugTraceListener instance;

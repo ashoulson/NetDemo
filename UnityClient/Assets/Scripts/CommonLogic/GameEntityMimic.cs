@@ -2,18 +2,18 @@
 using System.Collections.Generic;
 
 using UnityEngine;
+
+using GameLogic;
 using Railgun;
 
-public class DemoObjectDummy : MonoBehaviour
+public class GameEntityMimic : MonoBehaviour
 {
-  public DemoDummy Entity { get; set; }
-
-  public bool DoSmoothing = false;
+  public GameMimic Entity { get; set; }
   public Color color = Color.white;
 
   private static Vector2 GetCoordinates(RailState state)
   {
-    DemoState demoState = (DemoState)state;
+    GameState demoState = (GameState)state;
     return new Vector2(demoState.X, demoState.Y);
   }
 
@@ -27,18 +27,13 @@ public class DemoObjectDummy : MonoBehaviour
   {
     if (this.Entity != null)
       this.UpdatePosition();
-
-    if (Input.GetKeyDown(KeyCode.Alpha1))
-      this.DoSmoothing = true;
-    if (Input.GetKeyDown(KeyCode.Alpha2))
-      this.DoSmoothing = false;
   }
 
   private void UpdatePosition()
   {
-    DemoState state = this.Entity.State;
-    if (Client.DoSmoothing)
-      state = this.Entity.GetSmoothedState(Time.time - Time.fixedTime);
+    GameState state = this.Entity.State;
+    //if (Client.DoSmoothing)
+    //  state = this.Entity.GetSmoothedState(Time.time - Time.fixedTime);
     this.transform.position =
       new Vector2(state.X, state.Y);
   }

@@ -2,9 +2,9 @@
 // automatically migrating the DLL files from the Visual Studio
 // solution to the Unity Asset Assemblies directory. See the post-
 // build event and associated batch file for more information.
-namespace Client
+namespace DLLMigrate
 {
-  internal class Client
+  internal class DLLMigrate
   {
   }
 }

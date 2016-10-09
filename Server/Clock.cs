@@ -24,7 +24,7 @@ using System.Collections.Generic;
 
 using System.Diagnostics;
 
-namespace Example
+namespace GameServer
 {
   internal class Clock
   {

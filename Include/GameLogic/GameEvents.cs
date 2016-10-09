@@ -28,7 +28,7 @@ namespace GameLogic
     public static event Action<GameDummy> DummyCreated;
     public static event Action<GameMimic> MimicCreated;
 
-    public static event Action<GameActionEvent> GameActionEvent;
+    //public static event Action<GameActionEvent> GameActionEvent;
 
     public static void OnControlledAdded(GameControlled entity)
     {
@@ -48,10 +48,10 @@ namespace GameLogic
         GameEvents.MimicCreated.Invoke(entity);
     }
 
-    public static void OnGameActionEvent(GameActionEvent evnt)
-    {
-      if (GameEvents.GameActionEvent != null)
-        GameEvents.GameActionEvent.Invoke(evnt);
-    }
+    //public static void OnGameActionEvent(GameActionEvent evnt)
+    //{
+    //  if (GameEvents.GameActionEvent != null)
+    //    GameEvents.GameActionEvent.Invoke(evnt);
+    //}
   }
 }

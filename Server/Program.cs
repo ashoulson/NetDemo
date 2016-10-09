@@ -20,25 +20,18 @@
 
 using System;
 
-using UnityStandalone;
-
-using GameLogic;
-
-namespace Example
+namespace GameServer
 {
   class Program
   {
     static void Main(string[] args)
     {
-      //Server room = new Server(44325, 0.02f);
-      //room.Start();
-
-      Vector2 foo = GameMath.DoThing();
-      Console.Write(foo.x + " " + foo.y);
+      Server room = new Server(44325, 0.02f);
+      room.Start();
 
       while (true)
       {
-        //room.Update();
+        room.Update();
 
         if (Console.KeyAvailable)
         {
@@ -46,7 +39,7 @@ namespace Example
           switch (key.Key)
           {
             case ConsoleKey.F1:
-              //room.Stop();
+              room.Stop();
               return;
 
             default:

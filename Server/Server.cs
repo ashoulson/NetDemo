@@ -21,15 +21,16 @@
 using System;
 
 using MiniUDP;
+using Railgun;
 
-namespace Example
+namespace GameServer
 {
   internal class Server
   {
     private int port;
     private Clock clock;
 
-    private NetSocket socket;
+    private NetCore network;
     private RailServer server;
     private NetServerWrapper wrapper;
 
@@ -39,24 +40,19 @@ namespace Example
     {
       this.port = port;
 
-      this.socket = new NetSocket();
+      this.network = new NetCore("NetDemo1.0", true);
       this.server = new RailServer();
 
-      this.wrapper = new NetServerWrapper(socket, server);
+      this.wrapper = new NetServerWrapper(network, server);
       this.arena = new Arena(this.server);
 
       this.clock = new Clock(updateRate);
       this.clock.OnFixedUpdate += this.FixedUpdate;
-
-      // Logging
-      this.socket.Connected += this.OnConnected;
-      this.socket.Disconnected += this.OnDisconnected;
-      this.socket.TimedOut += this.OnTimedOut;
     }
 
     public void Start()
     {
-      this.socket.Bind(this.port);
+      this.network.Host(this.port);
       this.clock.Start();
     }
 
@@ -67,30 +63,13 @@ namespace Example
 
     public void Stop()
     {
-      this.socket.Shutdown();
-      this.socket.Transmit();
+      this.network.Stop();
     }
 
     private void FixedUpdate()
     {
-      this.socket.Poll();
+      this.network.PollEvents();
       this.server.Update();
-      this.socket.Transmit();
-    }
-
-    private void OnConnected(NetPeer peer)
-    {
-      Console.WriteLine("Connected: " + peer);
-    }
-
-    private void OnDisconnected(NetPeer peer)
-    {
-      Console.WriteLine("Disconnected: " + peer);
-    }
-
-    private void OnTimedOut(NetPeer peer)
-    {
-      Console.WriteLine("Timed Out: " + peer);
     }
   }
 }

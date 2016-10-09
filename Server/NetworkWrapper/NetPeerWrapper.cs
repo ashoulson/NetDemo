@@ -1,36 +1,36 @@
-﻿//using System;
-//using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
-//using Railgun;
-//using MiniUDP;
+using Railgun;
+using MiniUDP;
 
-//namespace Example
-//{
-//  internal class NetPeerWrapper : IRailNetPeer
-//  {
-//    public event RailNetPeerEvent PayloadReceived;
+namespace GameServer
+{
+  internal class NetPeerWrapper : IRailNetPeer
+  {
+    public event RailNetPeerEvent PayloadReceived;
 
-//    public object PlayerData { get; set; }
+    public object PlayerData { get; set; }
 
-//    private NetPeer peer;
+    private NetPeer peer;
 
-//    public NetPeerWrapper(NetPeer peer)
-//    {
-//      this.peer = peer;
-//      peer.UserData = this;
-//      this.peer.PayloadReceived += this.OnPayloadReceived;
-//    }
+    public NetPeerWrapper(NetPeer peer)
+    {
+      this.peer = peer;
+      peer.UserData = this;
+      this.peer.PayloadReceived += this.OnPayloadReceived;
+    }
 
-//    private void OnPayloadReceived(NetPeer peer, byte[] data, int length)
-//    {
-//      if (peer != this.peer)
-//        throw new InvalidOperationException("Peer wrapper mismatch");
-//      this.PayloadReceived?.Invoke(this, data, length);
-//    }
+    private void OnPayloadReceived(NetPeer peer, byte[] data, int length)
+    {
+      if (peer != this.peer)
+        throw new InvalidOperationException("Peer wrapper mismatch");
+      this.PayloadReceived?.Invoke(this, data, length);
+    }
 
-//    public void SendPayload(byte[] buffer, int length)
-//    {
-//      this.peer.SendPayload(buffer, length);
-//    }
-//  }
-//}
+    public void SendPayload(byte[] buffer, int length)
+    {
+      this.peer.SendPayload(buffer, length);
+    }
+  }
+}

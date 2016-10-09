@@ -48,10 +48,5 @@ namespace GameLogic
     {
       return (from + ((to - from) * t));
     }
-
-    public static Vector2 DoThing()
-    {
-      return new Vector2(1.0f, 1.0f);
-    }
   }
 }

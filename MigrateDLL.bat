@@ -3,7 +3,7 @@ REM Automatically migrates DLL files from the VS solution into Unity
 REM and generates MDBs. Unity's included PDB2MDB crashes on these DLLs
 REM so we use a newer one from Mono itself included in the Util directory.
 SET ROOT_PATH=%~dp0
-SET ASSEMBLY_PATH=%~dp0.\UnityClient\Assets\Assemblies\Generated\
+SET ASSEMBLY_PATH=%~dp0.\UnityClient\Assets\Assemblies\Built\
 SET PROJECT_PATH=%1
 SET PDB2MDB_PATH=pdb2mdb.exe
 

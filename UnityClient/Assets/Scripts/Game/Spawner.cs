@@ -3,51 +3,44 @@ using System.Collections.Generic;
 
 using UnityEngine;
 
+using GameLogic;
+
 public class Spawner : MonoBehaviour
 {
   void Awake()
   {
-    DemoEvents.ControlledCreated += this.OnControlledCreated;
-    DemoEvents.DummyCreated += this.OnDummyCreated;
-    DemoEvents.MimicCreated += this.OnMimicCreated;
+    GameEvents.ControlledCreated += this.OnControlledCreated;
+    GameEvents.DummyCreated += this.OnDummyCreated;
+    GameEvents.MimicCreated += this.OnMimicCreated;
   }
 
-  void Start()
-  {
-  }
-
-  void Update()
-  {
-  }
-
-  private void OnControlledCreated(DemoControlled entity)
+  private void OnControlledCreated(GameControlled entity)
   {
     GameObject go = 
       ArchetypeLibrary.Instance.Instantiate(
         entity.State.ArchetypeId);
 
-    DemoObjectControlled obj = go.GetComponent<DemoObjectControlled>();
+    GameEntityControlled obj = go.GetComponent<GameEntityControlled>();
     obj.Entity = entity;
   }
 
-  private void OnDummyCreated(DemoDummy entity)
+  private void OnDummyCreated(GameDummy entity)
   {
     GameObject go =
       ArchetypeLibrary.Instance.Instantiate(
         entity.State.ArchetypeId);
 
-    DemoObjectDummy obj = go.GetComponent<DemoObjectDummy>();
+    GameEntityDummy obj = go.GetComponent<GameEntityDummy>();
     obj.Entity = entity;
   }
 
-  private void OnMimicCreated(DemoMimic entity)
+  private void OnMimicCreated(GameMimic entity)
   {
     GameObject go =
       ArchetypeLibrary.Instance.Instantiate(
         entity.State.ArchetypeId);
 
-    DemoObjectMimic obj = go.GetComponent<DemoObjectMimic>();
+    GameEntityMimic obj = go.GetComponent<GameEntityMimic>();
     obj.Entity = entity;
   }
-
 }

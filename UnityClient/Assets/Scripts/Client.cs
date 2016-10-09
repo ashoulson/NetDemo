@@ -15,7 +15,7 @@ public class Client : MonoBehaviour
   public static bool DoSmoothing = true;
 
   public string address;
-  private NetSocket netSocket;
+  private NetCore network;
   private RailClient client;
 
   public float KBps = 0.0f;
@@ -28,37 +28,40 @@ public class Client : MonoBehaviour
   {
     Client.Instance = this;
 
-    this.netSocket = new NetSocket();
-    this.netSocket.Connected += this.OnConnected;
-    this.netSocket.Disconnected += this.OnDisconnected;
-    this.netSocket.TimedOut += this.OnTimedOut;
-
-    DemoEvents.DemoActionEvent += OnDemoActionEvent;
+    this.network = new NetCore("NetDemo1.0", false);
+    this.network.PeerConnected += Network_PeerConnected;
+    this.network.PeerClosed += Network_PeerClosed;
 
     this.client = new RailClient();
   }
 
-  void OnDemoActionEvent(DemoActionEvent evnt)
+  private void Network_PeerClosed(NetPeer peer, NetCloseReason reason, byte userKickReason, System.Net.Sockets.SocketError error)
   {
-    Debug.Log(evnt.Key);
+    Debug.Log("Disconnected: " + peer.EndPoint.ToString());
+  }
+
+  private void Network_PeerConnected(NetPeer peer, string token)
+  {
+    Debug.Log("Connected: " + peer.EndPoint.ToString());
+    this.client.SetPeer(new NetPeerWrapper(peer));
   }
 
   void Start()
   {
-    this.netSocket.Connect(this.address);
+    this.network.Connect(
+      NetUtil.StringToEndPoint(this.address), 
+      "SampleAuthToken");
   }
 
   void OnDisable()
   {
-    this.netSocket.Shutdown();
-    this.netSocket.Transmit();
+    this.network.Stop();
   }
 
   void FixedUpdate()
   {
-    this.netSocket.Poll();
+    this.network.PollEvents();
     this.client.Update();
-    this.netSocket.Transmit();
 
     this.UpdateBandwidth();
 
@@ -80,33 +83,5 @@ public class Client : MonoBehaviour
       sum += bytes;
     float average = (float)sum / (float)BANDWIDTH_WINDOW_SIZE;
     this.KBps = (average / Time.fixedDeltaTime) / 1024.0f;
-  }
-
-  private void OnConnected(NetPeer peer)
-  {
-    Debug.Log("Connected: " + peer.ToString() + " (" + this.netSocket.PeerCount + ")");
-    peer.MessagesReady += this.OnPeerMessagesReady;
-
-    this.client.SetPeer(new NetPeerWrapper(peer));
-  }
-
-  private void OnDisconnected(NetPeer peer)
-  {
-    Debug.Log("Disconnected: " + peer.ToString() + " (" + this.netSocket.PeerCount + ")");
-  }
-
-  void OnTimedOut(NetPeer peer)
-  {
-    Debug.Log("Timed Out: " + peer.ToString() + " (" + this.netSocket.PeerCount + ")");
-  }
-
-  private void OnPeerMessagesReady(NetPeer source)
-  {
-    byte[] buffer = new byte[2048];
-    foreach (int length in source.ReadReceived(buffer))
-    {
-      this.receivedThisFrame += length;
-      Debug.Log("Received: " + length);
-    }
   }
 }

@@ -22,7 +22,7 @@ using Railgun;
 
 using GameLogic;
 
-namespace Example
+namespace GameServer
 {
   public class Arena
   {
@@ -35,16 +35,16 @@ namespace Example
       server.ControllerJoined += this.OnControllerAdded;
       server.ControllerLeft += this.OnControllerLeft;
 
-      for (int i = 0; i < 15; i++)
-      {
-        for (int j = 0; j < 15; j++)
-        {
-          GameDummy dummy = this.server.AddNewEntity<GameDummy>();
-          dummy.State.ArchetypeId = 1;
-          dummy.State.X = (float)i * 5.0f;
-          dummy.State.Y = (float)j * 5.0f;
-        }
-      }
+      //for (int i = 0; i < 15; i++)
+      //{
+      //  for (int j = 0; j < 15; j++)
+      //  {
+      //    GameDummy dummy = this.server.AddNewEntity<GameDummy>();
+      //    dummy.State.ArchetypeId = 1;
+      //    dummy.State.X = (float)i * 5.0f;
+      //    dummy.State.Y = (float)j * 5.0f;
+      //  }
+      //}
     }
 
     private void OnControllerAdded(IRailControllerServer controller)

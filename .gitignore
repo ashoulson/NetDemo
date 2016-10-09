@@ -21,7 +21,7 @@ Unity/Assets/Assemblies.meta
 sysinfo.txt
 
 # Build Files
-Unity/Assets/Assemblies/*
+UnityClient/Assets/Assemblies/*
 Include/DLLMigrate/obj/*
 Include/DLLMigrate/bin/*
 Include/GameLogic/bin/*

@@ -1,47 +1,43 @@
-﻿//using System;
-//using System.Collections.Generic;
+﻿using System.Net.Sockets;
 
-//using Railgun;
-//using MiniUDP;
+using Railgun;
+using MiniUDP;
 
-//namespace Example
-//{
-//  /// <summary>
-//  /// Responsible for interpreting events from the socket and communicating
-//  /// them to the Railgun server.
-//  /// </summary>
-//  internal class NetServerWrapper
-//  {
-//    private NetSocket socket;
-//    private RailServer server;
+namespace GameServer
+{
+  /// <summary>
+  /// Responsible for interpreting events from the socket and communicating
+  /// them to the Railgun server.
+  /// </summary>
+  internal class NetServerWrapper
+  {
+    private NetCore network;
+    private RailServer server;
 
-//    public NetServerWrapper(NetSocket socket, RailServer server)
-//    {
-//      this.server = server;
+    public NetServerWrapper(NetCore network, RailServer server)
+    {
+      this.server = server;
 
-//      this.socket = socket;
-//      this.socket.Connected += this.OnConnected;
-//      this.socket.Disconnected += this.OnDisconnected;
-//      this.socket.TimedOut += this.OnTimedOut;
-//    }
+      this.network = network;
+      network.PeerConnected += OnPeerConnected;
+      network.PeerClosed += OnPeerClosed;
+    }
 
-//    private void OnConnected(NetPeer peer)
-//    {
-//      NetPeerWrapper wrapper = new NetPeerWrapper(peer);
-//      peer.UserData = wrapper;
-//      this.server.AddPeer(wrapper);
-//    }
+    private void OnPeerClosed(
+      NetPeer peer, 
+      NetCloseReason reason, 
+      byte userKickReason, 
+      SocketError error)
+    {
+      NetPeerWrapper wrapper = (NetPeerWrapper)peer.UserData;
+      this.server.RemovePeer(wrapper);
+    }
 
-//    private void OnDisconnected(NetPeer peer)
-//    {
-//      NetPeerWrapper wrapper = (NetPeerWrapper)peer.UserData;
-//      this.server.RemovePeer(wrapper);
-//    }
-
-//    private void OnTimedOut(NetPeer peer)
-//    {
-//      NetPeerWrapper wrapper = (NetPeerWrapper)peer.UserData;
-//      this.server.RemovePeer(wrapper);
-//    }
-//  }
-//}
+    private void OnPeerConnected(NetPeer peer, string token)
+    {
+      NetPeerWrapper wrapper = new NetPeerWrapper(peer);
+      peer.UserData = wrapper;
+      this.server.AddPeer(wrapper);
+    }
+  }
+}
