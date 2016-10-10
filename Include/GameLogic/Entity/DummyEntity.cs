@@ -20,16 +20,27 @@
 
 using System;
 
+#if SERVER
+using UnityStandalone;
+#else
+using UnityEngine;
+#endif
+
 using Railgun;
 
 namespace GameLogic
 {
-  public class DummyEntity : RailEntity<EntityState>
+  public class DummyEntity : RailEntity<EntityState>, IHasPosition
   {
     public static System.Random random = new System.Random();
 
     public event Action Frozen;
     public event Action Unfrozen;
+
+    public Vector2 Position
+    {
+      get { return new Vector2(this.State.X, this.State.Y); }
+    }
 
     private float startX;
     private float startY;

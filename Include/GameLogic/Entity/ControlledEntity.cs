@@ -30,11 +30,16 @@ using Railgun;
 
 namespace GameLogic
 {
-  public class ControlledEntity : RailEntity<EntityState, GameCommand>
+  public class ControlledEntity : RailEntity<EntityState, GameCommand>, IHasPosition
   {
     public event Action Shutdown;
     public event Action Frozen;
     public event Action Unfrozen;
+
+    public Vector2 Position
+    {
+      get { return new Vector2(this.State.X, this.State.Y); }
+    }
 
     //int actionCount = 0;
 

@@ -11,7 +11,7 @@ public class Spawner : MonoBehaviour
   {
     GameEvents.ControlledCreated += this.OnControlledCreated;
     GameEvents.DummyCreated += this.OnDummyCreated;
-    //GameEvents.MimicCreated += this.OnMimicCreated;
+    GameEvents.MimicCreated += this.OnMimicCreated;
   }
 
   private void OnControlledCreated(ControlledEntity entity)
@@ -36,13 +36,14 @@ public class Spawner : MonoBehaviour
     obj.Entity = entity;
   }
 
-  //private void OnMimicCreated(GameMimic entity)
-  //{
-  //  GameObject go =
-  //    ArchetypeLibrary.Instance.Instantiate(
-  //      entity.State.ArchetypeId);
+  private void OnMimicCreated(MimicEntity entity)
+  {
+    GameObject go =
+      ArchetypeLibrary.Instance.Instantiate(
+        entity.State.ArchetypeId);
 
-  //  GameEntityMimic obj = go.GetComponent<GameEntityMimic>();
-  //  obj.Entity = entity;
-  //}
+    MimicEntityBehaviour obj = 
+      go.GetComponent<MimicEntityBehaviour>();
+    obj.Entity = entity;
+  }
 }

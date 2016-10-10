@@ -72,6 +72,7 @@
     <Compile Include="GameRegistry.cs" />
     <Compile Include="GameScopeEvaluator.cs" />
     <Compile Include="EntityState.cs" />
+    <Compile Include="IHasPosition.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

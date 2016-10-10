@@ -19,47 +19,15 @@
 */
 
 #if SERVER
-using Railgun;
-
 using UnityStandalone;
+#else
+using UnityEngine;
+#endif
 
 namespace GameLogic
 {
-  public class GameScopeEvaluator : RailScopeEvaluator
+  public interface IHasPosition
   {
-    private const float MAX_DIST_SQR = 10000.0f;
-
-    private readonly ControlledEntity controlled;
-
-    public GameScopeEvaluator(ControlledEntity controlled)
-    {
-      this.controlled = controlled;
-    }
-
-    protected override bool Evaluate(
-      RailEntity entity,
-      int ticksSinceSend,
-      out float priority)
-    {
-      priority = 0.0f;
-      if (entity == this.controlled)
-        return true;
-
-      if (entity is IHasPosition)
-      {
-        Vector2 origin = this.controlled.Position;
-        Vector2 query = ((IHasPosition)entity).Position;
-
-        float distance = (origin - query).sqrMagnitude;
-        if (distance > GameScopeEvaluator.MAX_DIST_SQR)
-          return false;
-
-        priority = distance / ticksSinceSend;
-        return true;
-      }
-
-      return true;
-    }
+    Vector2 Position { get; }
   }
 }
-#endif

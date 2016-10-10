@@ -27,6 +27,8 @@ public class Client : MonoBehaviour
 
   void Awake()
   {
+    NetConfig.LatencySimulation = true;
+
     GameRegistry.Initialize();
     Client.Instance = this;
 

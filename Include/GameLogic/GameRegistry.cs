@@ -12,6 +12,7 @@ namespace GameLogic
       registry.SetCommandType<GameCommand>();
       registry.AddEntityType<ControlledEntity, EntityState>();
       registry.AddEntityType<DummyEntity, EntityState>();
+      registry.AddEntityType<MimicEntity, EntityState>();
 
       registry.Register();
     }

@@ -49,21 +49,21 @@ namespace GameServer
 
     private void OnControllerAdded(IRailControllerServer controller)
     {
-      //GameControlled controlled = this.server.AddNewEntity<GameControlled>();
-      //controlled.State.ArchetypeId = 0;
-      //controller.GrantControl(controlled);
-      //controller.ScopeEvaluator = new GameScopeEvaluator(controlled);
-      //controller.UserData = controlled;
+      ControlledEntity controlled = this.server.AddNewEntity<ControlledEntity>();
+      controlled.State.ArchetypeId = 0;
+      controller.GrantControl(controlled);
+      controller.ScopeEvaluator = new GameScopeEvaluator(controlled);
+      controller.UserData = controlled;
 
-      //DemoMimic mimic = this.server.AddNewEntity<DemoMimic>();
-      //mimic.State.ArchetypeId = 2;
-      //mimic.Bind(controlled, 3.5f, 0.0f);
+      MimicEntity mimic = this.server.AddNewEntity<MimicEntity>();
+      mimic.State.ArchetypeId = 2;
+      mimic.Bind(controlled, 3.5f, 0.0f);
     }
 
     private void OnControllerLeft(IRailControllerServer controller)
     {
-      //GameControlled controlled = (GameControlled)controller.UserData;
-      //this.server.DestroyEntity(controlled);
+      ControlledEntity controlled = (ControlledEntity)controller.UserData;
+      this.server.DestroyEntity(controlled);
     }
   }
 }
