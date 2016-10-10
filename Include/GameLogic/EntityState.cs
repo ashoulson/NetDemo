@@ -22,7 +22,7 @@ using Railgun;
 
 namespace GameLogic
 {
-  public class GameState : RailState<GameState>
+  public class EntityState : RailState<EntityState>
   {
     // TODO: This class is the sort of thing that would be great to code-
     // generate, but since there's only a couple of them at most the 
@@ -101,7 +101,7 @@ namespace GameLogic
       this.Status = 0;
     }
 
-    protected override void ApplyMutableFrom(GameState other, uint flags)
+    protected override void ApplyMutableFrom(EntityState other, uint flags)
     {
       if (this.GetFlag(flags, FLAG_X)) this.X = other.X;
       if (this.GetFlag(flags, FLAG_Y)) this.Y = other.Y;
@@ -109,17 +109,17 @@ namespace GameLogic
       if (this.GetFlag(flags, FLAG_STATUS)) this.Status = other.Status;
     }
 
-    protected override void ApplyControllerFrom(GameState other)
+    protected override void ApplyControllerFrom(EntityState other)
     {
     }
 
-    protected override void ApplyImmutableFrom(GameState other)
+    protected override void ApplyImmutableFrom(EntityState other)
     {
       this.ArchetypeId = other.ArchetypeId;
       this.UserId = other.UserId;
     }
 
-    protected override uint CompareMutableData(GameState basis)
+    protected override uint CompareMutableData(EntityState basis)
     {
       return
         this.SetFlag(GameMath.CoordinatesEqual(this.X, basis.X), FLAG_X) |
@@ -128,12 +128,12 @@ namespace GameLogic
         this.SetFlag(this.Status == basis.Status, FLAG_STATUS);
     }
 
-    protected override bool IsControllerDataEqual(GameState basis)
+    protected override bool IsControllerDataEqual(EntityState basis)
     {
       return true;
     }
 
-    protected override void ApplySmoothed(GameState first, GameState second, float t)
+    protected override void ApplySmoothed(EntityState first, EntityState second, float t)
     {
       this.X = GameMath.LerpUnclampedFloat(first.X, second.X, t);
       this.Y = GameMath.LerpUnclampedFloat(first.Y, second.Y, t);

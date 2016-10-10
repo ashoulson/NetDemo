@@ -19,16 +19,27 @@
 */
 
 using System;
+using System.Collections.Generic;
+
+using Railgun;
+using GameLogic;
 
 namespace GameServer
 {
   class Program
   {
+    private static IEnumerable<RailEvent> NoEnumerable()
+    {
+      yield break;
+    }
+
+
     static void Main(string[] args)
     {
+      GameRegistry.Initialize();
       Server room = new Server(44325, 0.02f);
-      room.Start();
 
+      room.Start();
       while (true)
       {
         room.Update();

@@ -63,15 +63,15 @@
   <ItemGroup>
     <Compile Include="GameActionEvent.cs" />
     <Compile Include="GameCommand.cs" />
-    <Compile Include="GameDummy.cs" />
+    <Compile Include="Entity\DummyEntity.cs" />
     <Compile Include="GameCompressors.cs" />
-    <Compile Include="GameControlled.cs" />
+    <Compile Include="Entity\ControlledEntity.cs" />
     <Compile Include="GameEvents.cs" />
     <Compile Include="GameMath.cs" />
-    <Compile Include="GameMimic.cs" />
+    <Compile Include="Entity\MimicEntity.cs" />
+    <Compile Include="GameRegistry.cs" />
     <Compile Include="GameScopeEvaluator.cs" />
-    <Compile Include="GameState.cs" />
-    <Compile Include="GameTypes.cs" />
+    <Compile Include="EntityState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

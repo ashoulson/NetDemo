@@ -29,6 +29,6 @@ internal class NetPeerWrapper : IRailNetPeer
 
   public void SendPayload(byte[] buffer, int length)
   {
-    this.peer.SendPayload(buffer, length);
+    this.peer.SendPayload(buffer, (ushort)length);
   }
 }

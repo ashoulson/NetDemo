@@ -24,29 +24,29 @@ namespace GameLogic
 {
   public class GameEvents
   {
-    public static event Action<GameControlled> ControlledCreated;
-    public static event Action<GameDummy> DummyCreated;
-    public static event Action<GameMimic> MimicCreated;
+    public static event Action<ControlledEntity> ControlledCreated;
+    public static event Action<DummyEntity> DummyCreated;
+    //public static event Action<GameMimic> MimicCreated;
 
     //public static event Action<GameActionEvent> GameActionEvent;
 
-    public static void OnControlledAdded(GameControlled entity)
+    public static void OnControlledAdded(ControlledEntity entity)
     {
       if (GameEvents.ControlledCreated != null)
         GameEvents.ControlledCreated.Invoke(entity);
     }
 
-    public static void OnDummyAdded(GameDummy entity)
+    public static void OnDummyAdded(DummyEntity entity)
     {
       if (GameEvents.DummyCreated != null)
         GameEvents.DummyCreated.Invoke(entity);
     }
 
-    public static void OnMimicAdded(GameMimic entity)
-    {
-      if (GameEvents.DummyCreated != null)
-        GameEvents.MimicCreated.Invoke(entity);
-    }
+    //public static void OnMimicAdded(GameMimic entity)
+    //{
+    //  if (GameEvents.DummyCreated != null)
+    //    GameEvents.MimicCreated.Invoke(entity);
+    //}
 
     //public static void OnGameActionEvent(GameActionEvent evnt)
     //{

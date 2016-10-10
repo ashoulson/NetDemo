@@ -20,60 +20,69 @@
 
 using System;
 
+#if SERVER
+using UnityStandalone;
+#else
+using UnityEngine;
+#endif
+
 using Railgun;
 
 namespace GameLogic
 {
-  [RegisterEntity(typeof(GameState))]
-  public class GameDummy : RailEntity<GameState>
+  public class ControlledEntity : RailEntity<EntityState, GameCommand>
   {
-    public static System.Random random = new System.Random();
-
+    public event Action Shutdown;
     public event Action Frozen;
     public event Action Unfrozen;
 
-    private float startX;
-    private float startY;
-    private float distance;
-    private float angle;
-    private float speed;
+    //int actionCount = 0;
 
     protected override void OnStart()
     {
-      GameEvents.OnDummyAdded(this);
-
-      this.startX = this.State.X;
-      this.startY = this.State.Y;
-      this.angle = 0.0f;
-
-      this.distance = 1.0f + ((float)GameDummy.random.NextDouble() * 2.0f);
-      this.speed = 1.0f + ((float)GameDummy.random.NextDouble() * 2.0f);
-
-      if (GameDummy.random.NextDouble() > 0.5f)
-        this.speed *= -1.0f;
+      GameEvents.OnControlledAdded(this);
     }
 
     protected override void OnReset()
     {
-      this.startX = 0.0f;
-      this.startY = 0.0f;
-      this.distance = 0.0f;
-      this.angle = 0.0f;
-      this.speed = 0.0f;
+      //this.actionCount = 0;
     }
 
-    protected override void PostUpdate()
+    protected override void UpdateControl(GameCommand toPopulate)
     {
-      this.angle += RailConfig.FIXED_DELTA_TIME * this.speed;
+#if CLIENT
+    toPopulate.SetData(
+      Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W),
+      Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S),
+      Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A),
+      Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D),
+      Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.T));
+#endif
+    }
 
-      float adjustedX = this.startX + this.distance;
-      float adjustedY = this.startY;
+    protected override void ApplyControl(GameCommand toApply)
+    {
+      if (toApply.Up)
+        this.State.Y += 5.0f * Time.fixedDeltaTime;
+      if (toApply.Down)
+        this.State.Y -= 5.0f * Time.fixedDeltaTime;
+      if (toApply.Left)
+        this.State.X -= 5.0f * Time.fixedDeltaTime;
+      if (toApply.Right)
+        this.State.X += 5.0f * Time.fixedDeltaTime;
 
-      float newX = (float)(this.startX + (adjustedX - this.startX) * System.Math.Cos(this.angle) - (adjustedY - this.startY) * System.Math.Sin(this.angle));
-      float newY = (float)(this.startY + (adjustedX - this.startX) * System.Math.Sin(this.angle) + (adjustedY - this.startY) * System.Math.Cos(this.angle));
+      //if (RailConnection.IsServer && toApply.Action)
+      //{
+      //  GameActionEvent evnt = RailEvent.Create<GameActionEvent>(this);
+      //  evnt.Key = this.actionCount++;
+      //  this.Controller.QueueEvent(evnt, 2);
+      //}
+    }
 
-      this.State.X = newX;
-      this.State.Y = newY;
+    protected override void OnShutdown()
+    {
+      if (this.Shutdown != null)
+        this.Shutdown.Invoke();
     }
 
     protected override void OnFrozen()

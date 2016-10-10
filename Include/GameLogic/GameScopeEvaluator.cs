@@ -29,9 +29,9 @@ namespace GameLogic
   {
     //private float maxDistSqr = 10000.0f;
 
-    private readonly GameControlled controlled;
+    private readonly ControlledEntity controlled;
 
-    public GameScopeEvaluator(GameControlled controlled)
+    public GameScopeEvaluator(ControlledEntity controlled)
     {
       this.controlled = controlled;
     }

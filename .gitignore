@@ -13,14 +13,16 @@
 *.booproj
 *.suo
 
+
 # Unity3D generated meta files
 *.pidb.meta
-Unity/Assets/Assemblies.meta
+UnityClient/Assets/Assemblies.meta
 
 # Unity3D generated file on crash reports
 sysinfo.txt
 
 # Build Files
+UnityClient/*.csproj
 UnityClient/Assets/Assemblies/*
 Include/DLLMigrate/obj/*
 Include/DLLMigrate/bin/*

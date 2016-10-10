@@ -35,25 +35,25 @@ namespace GameServer
       server.ControllerJoined += this.OnControllerAdded;
       server.ControllerLeft += this.OnControllerLeft;
 
-      //for (int i = 0; i < 15; i++)
-      //{
-      //  for (int j = 0; j < 15; j++)
-      //  {
-      //    GameDummy dummy = this.server.AddNewEntity<GameDummy>();
-      //    dummy.State.ArchetypeId = 1;
-      //    dummy.State.X = (float)i * 5.0f;
-      //    dummy.State.Y = (float)j * 5.0f;
-      //  }
-      //}
+      for (int i = 0; i < 15; i++)
+      {
+        for (int j = 0; j < 15; j++)
+        {
+          DummyEntity dummy = this.server.AddNewEntity<DummyEntity>();
+          dummy.State.ArchetypeId = 1;
+          dummy.State.X = i * 5.0f;
+          dummy.State.Y = j * 5.0f;
+        }
+      }
     }
 
     private void OnControllerAdded(IRailControllerServer controller)
     {
-      GameControlled controlled = this.server.AddNewEntity<GameControlled>();
-      controlled.State.ArchetypeId = 0;
-      controller.GrantControl(controlled);
-      controller.ScopeEvaluator = new GameScopeEvaluator(controlled);
-      controller.UserData = controlled;
+      //GameControlled controlled = this.server.AddNewEntity<GameControlled>();
+      //controlled.State.ArchetypeId = 0;
+      //controller.GrantControl(controlled);
+      //controller.ScopeEvaluator = new GameScopeEvaluator(controlled);
+      //controller.UserData = controlled;
 
       //DemoMimic mimic = this.server.AddNewEntity<DemoMimic>();
       //mimic.State.ArchetypeId = 2;
@@ -62,8 +62,8 @@ namespace GameServer
 
     private void OnControllerLeft(IRailControllerServer controller)
     {
-      GameControlled controlled = (GameControlled)controller.UserData;
-      this.server.DestroyEntity(controlled);
+      //GameControlled controlled = (GameControlled)controller.UserData;
+      //this.server.DestroyEntity(controlled);
     }
   }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using UnityEngine;
 
+using GameLogic;
 using MiniUDP;
 using Railgun;
 
@@ -26,6 +27,7 @@ public class Client : MonoBehaviour
 
   void Awake()
   {
+    GameRegistry.Initialize();
     Client.Instance = this;
 
     this.network = new NetCore("NetDemo1.0", false);

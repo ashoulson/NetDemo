@@ -22,7 +22,6 @@ using Railgun;
 
 namespace GameLogic
 {
-  [RegisterCommand]
   public class GameCommand : RailCommand<GameCommand>
   {
     public bool Up { get; set; }

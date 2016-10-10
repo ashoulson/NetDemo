@@ -24,49 +24,55 @@ using Railgun;
 
 namespace GameLogic
 {
-  [RegisterEntity(typeof(GameState))]
-  public class GameMimic : RailEntity<GameState>
+  public class DummyEntity : RailEntity<EntityState>
   {
-    public event Action Shutdown;
+    public static System.Random random = new System.Random();
+
     public event Action Frozen;
     public event Action Unfrozen;
 
-    private GameControlled controlled;
-    private float xOffset;
-    private float yOffset;
+    private float startX;
+    private float startY;
+    private float distance;
+    private float angle;
+    private float speed;
 
-    public void Bind(
-      GameControlled controlled,
-      float xOffset,
-      float yOffset)
+    protected override void OnStart()
     {
-      this.controlled = controlled;
-      this.xOffset = xOffset;
-      this.yOffset = yOffset;
+      GameEvents.OnDummyAdded(this);
+
+      this.startX = this.State.X;
+      this.startY = this.State.Y;
+      this.angle = 0.0f;
+
+      this.distance = 1.0f + ((float)DummyEntity.random.NextDouble() * 2.0f);
+      this.speed = 1.0f + ((float)DummyEntity.random.NextDouble() * 2.0f);
+
+      if (DummyEntity.random.NextDouble() > 0.5f)
+        this.speed *= -1.0f;
     }
 
     protected override void OnReset()
     {
-      this.controlled = null;
-      this.xOffset = 0.0f;
-      this.yOffset = 0.0f;
-    }
-
-    protected override void OnStart()
-    {
-      GameEvents.OnMimicAdded(this);
+      this.startX = 0.0f;
+      this.startY = 0.0f;
+      this.distance = 0.0f;
+      this.angle = 0.0f;
+      this.speed = 0.0f;
     }
 
     protected override void PostUpdate()
     {
-      this.State.X = this.controlled.State.X + this.xOffset;
-      this.State.Y = this.controlled.State.Y + this.yOffset;
-    }
+      this.angle += RailConfig.FIXED_DELTA_TIME * this.speed;
 
-    protected override void OnShutdown()
-    {
-      if (this.Shutdown != null)
-        this.Shutdown.Invoke();
+      float adjustedX = this.startX + this.distance;
+      float adjustedY = this.startY;
+
+      float newX = (float)(this.startX + (adjustedX - this.startX) * System.Math.Cos(this.angle) - (adjustedY - this.startY) * System.Math.Sin(this.angle));
+      float newY = (float)(this.startY + (adjustedX - this.startX) * System.Math.Sin(this.angle) + (adjustedY - this.startY) * System.Math.Cos(this.angle));
+
+      this.State.X = newX;
+      this.State.Y = newY;
     }
 
     protected override void OnFrozen()

@@ -11,36 +11,38 @@ public class Spawner : MonoBehaviour
   {
     GameEvents.ControlledCreated += this.OnControlledCreated;
     GameEvents.DummyCreated += this.OnDummyCreated;
-    GameEvents.MimicCreated += this.OnMimicCreated;
+    //GameEvents.MimicCreated += this.OnMimicCreated;
   }
 
-  private void OnControlledCreated(GameControlled entity)
+  private void OnControlledCreated(ControlledEntity entity)
   {
     GameObject go = 
       ArchetypeLibrary.Instance.Instantiate(
         entity.State.ArchetypeId);
 
-    GameEntityControlled obj = go.GetComponent<GameEntityControlled>();
+    ControlledEntityBehaviour obj = 
+      go.GetComponent<ControlledEntityBehaviour>();
     obj.Entity = entity;
   }
 
-  private void OnDummyCreated(GameDummy entity)
+  private void OnDummyCreated(DummyEntity entity)
   {
     GameObject go =
       ArchetypeLibrary.Instance.Instantiate(
         entity.State.ArchetypeId);
 
-    GameEntityDummy obj = go.GetComponent<GameEntityDummy>();
+    DummyEntityBehaviour obj = 
+      go.GetComponent<DummyEntityBehaviour>();
     obj.Entity = entity;
   }
 
-  private void OnMimicCreated(GameMimic entity)
-  {
-    GameObject go =
-      ArchetypeLibrary.Instance.Instantiate(
-        entity.State.ArchetypeId);
+  //private void OnMimicCreated(GameMimic entity)
+  //{
+  //  GameObject go =
+  //    ArchetypeLibrary.Instance.Instantiate(
+  //      entity.State.ArchetypeId);
 
-    GameEntityMimic obj = go.GetComponent<GameEntityMimic>();
-    obj.Entity = entity;
-  }
+  //  GameEntityMimic obj = go.GetComponent<GameEntityMimic>();
+  //  obj.Entity = entity;
+  //}
 }
