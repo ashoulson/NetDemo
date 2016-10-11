@@ -72,7 +72,7 @@ namespace GameLogic
       this.speed = 0.0f;
     }
 
-    protected override void PostUpdate()
+    protected override void UpdateAuth()
     {
       this.angle += RailConfig.FIXED_DELTA_TIME * this.speed;
 
