@@ -73,6 +73,10 @@ public class Client : MonoBehaviour
       Client.DoSmoothing = true;
     if (Input.GetKey(KeyCode.Alpha2))
       Client.DoSmoothing = false;
+    if (Input.GetKey(KeyCode.Alpha3))
+      NetConfig.LatencySimulation = true;
+    if (Input.GetKey(KeyCode.Alpha4))
+      NetConfig.LatencySimulation = false;
   }
 
   private void UpdateBandwidth()
