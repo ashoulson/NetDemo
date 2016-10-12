@@ -28,6 +28,8 @@ namespace GameLogic
 {
   public static class GameMath
   {
+    internal const float FIXED_DELTA_TIME = 0.02f;
+
     internal const float COORDINATE_PRECISION = 0.001f;
     internal const float ANGLE_PRECISION = 0.001f;
 

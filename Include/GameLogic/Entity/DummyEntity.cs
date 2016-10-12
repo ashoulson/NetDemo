@@ -74,7 +74,7 @@ namespace GameLogic
 
     protected override void UpdateAuth()
     {
-      this.angle += RailConfig.FIXED_DELTA_TIME * this.speed;
+      this.angle += GameMath.FIXED_DELTA_TIME * this.speed;
 
       float adjustedX = this.startX + this.distance;
       float adjustedY = this.startY;

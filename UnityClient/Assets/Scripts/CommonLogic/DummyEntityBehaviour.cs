@@ -33,10 +33,27 @@ public class DummyEntityBehaviour : MonoBehaviour
   private void UpdatePosition()
   {
     EntityState state = this.Entity.State;
-    //if (Client.DoSmoothing)
-    //  state = this.Entity.GetSmoothedState(Time.time - Time.fixedTime);
-    this.transform.position =
-      new Vector2(state.X, state.Y);
+    if (Client.DoSmoothing)
+      this.transform.position = this.GetSmoothedPosition();
+    else
+      this.transform.position = new Vector2(state.X, state.Y);
+  }
+
+  private Vector2 GetSmoothedPosition()
+  {
+    EntityState current = this.Entity.AuthState;
+    Vector2 curPos = new Vector2(current.X, current.Y);
+
+    EntityState next = this.Entity.NextState;
+    if (next == null)
+      return curPos;
+    Vector2 nextPos = new Vector2(next.X, next.Y);
+
+    float t = 
+      this.Entity.ComputeInterpolation(
+        Time.fixedDeltaTime, 
+        Time.time - Time.fixedTime);
+    return Vector2.Lerp(curPos, nextPos, t);
   }
 
   private void OnFrozen()
